@@ -1,4 +1,3 @@
-<!-- res/layout/activity_add_expense.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,6 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Expense Name Input -->
     <EditText
         android:id="@+id/expense_name"
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         android:id="@+id/expense_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" /> <!-- Increased bottom margin -->
+        android:layout_marginBottom="16dp" />
 
     <!-- Date Picker -->
     <Button
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:onClick="onSelectDateClick"
-        android:text="Select Date" /> <!-- Increased bottom margin -->
+        android:text="Select Date" />
 
     <!-- Save Expense Button -->
     <Button
@@ -46,5 +46,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:onClick="onSaveExpense"
-        android:text="Save Expense" /> <!-- Margin to separate button from the rest -->
+        android:text="Save Expense" />
+
 </LinearLayout>

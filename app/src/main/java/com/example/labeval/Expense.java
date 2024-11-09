@@ -3,6 +3,7 @@ package com.example.labeval;
 import java.util.Date;
 
 public class Expense {
+
     private String name;
     private double amount;
     private String category;
@@ -16,20 +17,36 @@ public class Expense {
         this.date = date;
     }
 
-    // Getters
+    // Getters and Setters
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getAmount() {
         return amount;
     }
 
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
     public String getCategory() {
         return category;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public Date getDate() {
         return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
