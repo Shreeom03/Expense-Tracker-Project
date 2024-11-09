@@ -1,13 +1,38 @@
 <!-- res/layout/activity_home.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#f1f1f1">
 
+    <!-- Total Expenses Section -->
     <TextView
-        android:id="@+id/main"
+        android:id="@+id/total_expenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Expenses: $0"
+        android:textSize="24sp"
+        android:textColor="#333"
+        android:gravity="center"
+        android:paddingBottom="16dp"/>
+
+    <!-- Expenses Breakdown by Category -->
+    <LinearLayout
+        android:id="@+id/expense_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+        <!-- Categories will be dynamically added here -->
+    </LinearLayout>
+
+    <!-- Add Expense Button -->
+    <Button
+        android:id="@+id/add_expense_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Expense Tracker"
-        android:layout_centerInParent="true"
-        android:textSize="24sp"/>
-</RelativeLayout>
+        android:text="Add Expense"
+        android:layout_gravity="center"
+        android:onClick="onAddExpenseClick"/>
+</LinearLayout>

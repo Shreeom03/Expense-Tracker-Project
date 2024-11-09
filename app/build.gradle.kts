@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-//    id("com.android.application")
+    id("com.android.application")
 //    id("com.google.gms.google-services")
     id("com.google.gms.google-services") version "4.4.2" apply false
 }
@@ -31,6 +31,30 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+buildscript {
+
+    repositories {
+        // Make sure that you have the following two repositories
+        google()  // Google's Maven repository
+        mavenCentral()  // Maven Central repository
+    }
+
+    dependencies {
+
+        // Add the Maven coordinates and latest version of the plugin
+        classpath ("PLUGIN_MAVEN_COORDINATES:PLUGIN_VERSION")
+    }
+}
+
+allprojects {
+
+    repositories {
+        // Make sure that you have the following two repositories
+        google()  // Google's Maven repository
+        mavenCentral()  // Maven Central repository
     }
 }
 
