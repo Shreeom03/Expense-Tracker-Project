@@ -8,6 +8,7 @@ public class Expense {
     private String category;
     private Date date;
 
+    // Constructor
     public Expense(String name, double amount, String category, Date date) {
         this.name = name;
         this.amount = amount;
@@ -15,36 +16,20 @@ public class Expense {
         this.date = date;
     }
 
-    // Getter and Setter methods
+    // Getters
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public Date getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }

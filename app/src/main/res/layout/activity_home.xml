@@ -1,31 +1,46 @@
-<!-- res/layout/activity_home.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#f1f1f1">
+    android:gravity="center">
 
-    <!-- Total Expenses Section -->
+    <!-- Total Expense Text -->
     <TextView
-        android:id="@+id/total_expenses"
-        android:layout_width="match_parent"
+        android:id="@+id/total_expense"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Expenses: $0"
-        android:textSize="24sp"
-        android:textColor="#333"
-        android:gravity="center"
-        android:paddingBottom="16dp"/>
+        android:text="Total Expenses: $0.00"
+        android:textSize="20sp"
+        android:layout_marginBottom="32dp"
+        android:textStyle="bold" />
 
-    <!-- Expenses Breakdown by Category -->
-    <LinearLayout
-        android:id="@+id/expense_categories"
-        android:layout_width="match_parent"
+    <!-- Food Category Expense -->
+    <TextView
+        android:id="@+id/food_expense"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="16dp">
-        <!-- Categories will be dynamically added here -->
-    </LinearLayout>
+        android:text="Food: $0.00"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Transport Category Expense -->
+    <TextView
+        android:id="@+id/transport_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Transport: $0.00"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Accommodation Category Expense -->
+    <TextView
+        android:id="@+id/accommodation_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accommodation: $0.00"
+        android:textSize="18sp"
+        android:layout_marginBottom="32dp" />
 
     <!-- Add Expense Button -->
     <Button
@@ -33,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Expense"
-        android:layout_gravity="center"
-        android:onClick="onAddExpenseClick"/>
+        android:textSize="18sp"
+        android:layout_marginTop="32dp" />
+
 </LinearLayout>

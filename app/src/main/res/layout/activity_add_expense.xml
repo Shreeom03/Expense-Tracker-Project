@@ -2,27 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:padding="16dp">
 
-    <!-- Expense Name Input -->
     <EditText
         android:id="@+id/expense_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:hint="Expense Name"
-        android:inputType="text"
-        android:layout_marginBottom="16dp" /> <!-- Increased bottom margin -->
+        android:inputType="text" />
 
     <!-- Expense Amount Input -->
     <EditText
         android:id="@+id/expense_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:hint="Amount"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="16dp" /> <!-- Increased bottom margin -->
+        android:inputType="numberDecimal" />
 
     <!-- Category Spinner (dropdown) -->
     <Spinner
@@ -36,16 +35,16 @@
         android:id="@+id/expense_date_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Date"
+        android:layout_marginBottom="16dp"
         android:onClick="onSelectDateClick"
-        android:layout_marginBottom="16dp" /> <!-- Increased bottom margin -->
+        android:text="Select Date" /> <!-- Increased bottom margin -->
 
     <!-- Save Expense Button -->
     <Button
         android:id="@+id/save_expense_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Expense"
+        android:layout_marginTop="32dp"
         android:onClick="onSaveExpense"
-        android:layout_marginTop="32dp" /> <!-- Margin to separate button from the rest -->
+        android:text="Save Expense" /> <!-- Margin to separate button from the rest -->
 </LinearLayout>

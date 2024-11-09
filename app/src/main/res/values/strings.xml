@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">LabEval</string>
+
+    <string-array name="expense_categories">
+        <item>Food</item>
+        <item>Transport</item>
+        <item>Accommodation</item>
+        <item>Entertainment</item>
+    </string-array>
 </resources>
