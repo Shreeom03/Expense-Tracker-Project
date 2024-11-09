@@ -1,6 +1,5 @@
 package com.example.labeval;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,11 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,81 +19,74 @@ public class HomeActivity extends AppCompatActivity {
     private TextView totalExpensesText;
     private LinearLayout expenseCategoriesLayout;
     private Button addExpenseButton;
-    private FirebaseFirestore db;
+
+    private ArrayList<Expense> expenses = new ArrayList<>();  // List to hold expense objects
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Initialize Firebase Firestore
-        db = FirebaseFirestore.getInstance();
-
         totalExpensesText = findViewById(R.id.total_expenses);
         expenseCategoriesLayout = findViewById(R.id.expense_categories);
         addExpenseButton = findViewById(R.id.add_expense_button);
 
-        // Load expenses from Firestore
+        // Add sample expenses (in place of Firebase data)
+        addSampleExpenses();
+
+        // Load and display expenses
         loadExpenses();
     }
 
+    private void addSampleExpenses() {
+        expenses.add(new Expense("Lunch", 50.0, "Food", new Date()));
+        expenses.add(new Expense("Taxi", 30.0, "Transport", new Date()));
+        expenses.add(new Expense("Hotel", 200.0, "Accommodation", new Date()));
+    }
+
     private void loadExpenses() {
-        CollectionReference expensesRef = db.collection("expenses");
+        // Calculate total expenses and category breakdown
+        double totalExpenses = 0;
+        Map<String, Double> categoryTotals = new HashMap<>();
 
-        // Retrieve all expenses
-        expensesRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                // Data is fetched from Firestore
-                QuerySnapshot querySnapshot = task.getResult();
-                double totalExpenses = 0;
-                Map<String, Double> categoryTotals = new HashMap<>();
+        for (Expense expense : expenses) {
+            double amount = expense.getAmount();
+            totalExpenses += amount;
 
-                // Loop through each document (expense)
-                for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                    String category = document.getString("category");
-                    double amount = document.getDouble("amount");
+            // Update category breakdown
+            String category = expense.getCategory();
+            categoryTotals.put(category, categoryTotals.getOrDefault(category, 0.0) + amount);
+        }
 
-                    // Add to total expenses
-                    totalExpenses += amount;
+        // Update total expenses text
+        totalExpensesText.setText("Total Expenses: $" + totalExpenses);
 
-                    // Add amount to category totals
-                    categoryTotals.put(category, categoryTotals.getOrDefault(category, 0.0) + amount);
-                }
-
-                // Update total expenses on the UI
-                totalExpensesText.setText("Total Expenses: $" + totalExpenses);
-
-                // Display category breakdown
-                displayCategoryBreakdown(categoryTotals);
-            } else {
-                Toast.makeText(HomeActivity.this, "Error getting expenses", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Display category breakdown
+        displayCategoryBreakdown(categoryTotals);
     }
 
     private void displayCategoryBreakdown(Map<String, Double> categoryTotals) {
         expenseCategoriesLayout.removeAllViews();  // Clear previous data
 
-        // Loop through categories and add to layout
+        // Loop through categories and add them to the UI
         for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
             String category = entry.getKey();
             double total = entry.getValue();
 
-            // Create a TextView for each category
             TextView categoryTextView = new TextView(this);
             categoryTextView.setText(category + ": $" + total);
             categoryTextView.setTextSize(18);
             categoryTextView.setPadding(0, 8, 0, 8);
 
-            // Add TextView to the layout
+            // Add to layout
             expenseCategoriesLayout.addView(categoryTextView);
         }
     }
 
     // OnClick method for Add Expense button
     public void onAddExpenseClick(View view) {
-        // Navigate to Add Expense Activity (assuming you have an AddExpenseActivity)
-        Intent intent = new Intent(HomeActivity.this, AddExpenseActivity.class);
-        startActivity(intent);
+        // Open Add Expense screen (assuming you have this activity set up)
+        // You can pass the list of expenses if needed or handle adding directly
+        Toast.makeText(this, "Navigate to Add Expense Screen", Toast.LENGTH_SHORT).show();
     }
 }
