@@ -34,20 +34,14 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(HomeActivity.this, AddExpenseActivity.class);
             startActivity(intent);
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Load and display the updated list of expenses
+        // Load and display expenses
         loadExpenses();
     }
 
     private void loadExpenses() {
-        // Get the list of expenses from the ExpenseManager
         List<Expense> expenses = ExpenseManager.getInstance().getAllExpenses();
 
-        // Initialize variables for total and category expenses
         double totalExpense = 0;
         double foodExpense = 0;
         double transportExpense = 0;
@@ -55,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         double adventureExpense = 0;
         double extraExpense = 0;
 
-        // Loop through the expenses and calculate the total and category breakdown
+        // Calculate total and category expenses
         for (Expense expense : expenses) {
             totalExpense += expense.getAmount();
             switch (expense.getCategory()) {

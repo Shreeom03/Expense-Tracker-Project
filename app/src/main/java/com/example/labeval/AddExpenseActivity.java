@@ -1,8 +1,10 @@
 package com.example.labeval;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class AddExpenseActivity extends AppCompatActivity {
@@ -39,15 +42,28 @@ public class AddExpenseActivity extends AppCompatActivity {
         // Set onClick listener for the save button
         saveExpenseButton.setOnClickListener(v -> onSaveExpense());
 
-        // Populate the spinner with categories (You can use an array adapter for simplicity)
-        // Example:
-        // ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
-        // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // categorySpinner.setAdapter(adapter);
+        // Set up category spinner (options: Food, Transport, Accommodation, Adventure, Extra)
+        String[] categories = {"Food", "Transport", "Accommodation", "Adventure", "Extra"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
     }
 
     public void onSelectDateClick(View view) {
-        // Implement date picker logic (e.g., using a DatePickerDialog)
+        // Get current date
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Open DatePickerDialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view1, selectedYear, selectedMonth, selectedDay) -> {
+                    // Set selected date on the button
+                    selectedDate = new Date(selectedYear - 1900, selectedMonth, selectedDay);
+                    dateButton.setText(String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear));
+                }, year, month, day);
+        datePickerDialog.show();
     }
 
     public void onSaveExpense() {

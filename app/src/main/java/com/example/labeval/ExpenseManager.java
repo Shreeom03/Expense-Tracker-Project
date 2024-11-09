@@ -20,21 +20,29 @@ public class ExpenseManager {
         return instance;
     }
 
+    // Add new expense
     public void addExpense(String name, double amount, String category, Date date) {
-        // Check if an expense with the same name and date exists
-        for (Expense expense : expenses) {
-            if (expense.getName().equals(name) && expense.getDate().equals(date)) {
-                // Update existing expense
-                expense.setAmount(amount);
-                expense.setCategory(category);
-                return;
-            }
-        }
-        // If no existing expense found, create a new one
         expenses.add(new Expense(name, amount, category, date));
     }
 
+    // Remove an expense
+    public void removeExpense(Expense expense) {
+        expenses.remove(expense);
+    }
+
+    // Get all expenses
     public List<Expense> getAllExpenses() {
         return expenses;
+    }
+
+    // Get expenses filtered by category
+    public List<Expense> getExpensesByCategory(String category) {
+        List<Expense> filteredExpenses = new ArrayList<>();
+        for (Expense expense : expenses) {
+            if (expense.getCategory().equals(category)) {
+                filteredExpenses.add(expense);
+            }
+        }
+        return filteredExpenses;
     }
 }

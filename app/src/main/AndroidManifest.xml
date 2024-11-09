@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.labeval">
+    package="com.example.labeval" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -8,17 +8,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="Expense Tracker"
+        android:icon="@mipmap/ic_launcher_round"
+        android:label="Trip Tracker"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".AddExpenseActivity"
-            android:exported="false" />
-        <!-- Launcher Activity with exported set to true -->
+            android:exported="false" /> <!-- Launcher Activity with exported set to true -->
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
