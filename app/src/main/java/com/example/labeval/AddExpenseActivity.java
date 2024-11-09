@@ -1,25 +1,26 @@
 package com.example.labeval;
 
-import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class AddExpenseActivity extends AppCompatActivity {
 
-    private EditText expenseNameEditText, amountEditText;
+    private EditText expenseNameEditText, expenseAmountEditText;
     private Spinner categorySpinner;
-    private Button saveButton, dateButton;
-    private int year, month, day;
+    private Button dateButton, saveExpenseButton;
+    private CheckBox editCheckBox;
+
+    private String selectedCategory;
     private Date selectedDate;
 
     @Override
@@ -29,52 +30,57 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         // Initialize views
         expenseNameEditText = findViewById(R.id.expense_name);
-        amountEditText = findViewById(R.id.expense_amount);
+        expenseAmountEditText = findViewById(R.id.expense_amount);
         categorySpinner = findViewById(R.id.expense_category);
-        saveButton = findViewById(R.id.save_expense_button);
         dateButton = findViewById(R.id.expense_date_button);
+        saveExpenseButton = findViewById(R.id.save_expense_button);
+        editCheckBox = findViewById(R.id.edit_checkbox);
 
-        // Set up date selection
-        final Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
+        // Set onClick listener for the save button
+        saveExpenseButton.setOnClickListener(v -> onSaveExpense());
 
-        // Set onClickListener for Date button to open DatePickerDialog
-        dateButton.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    AddExpenseActivity.this,
-                    (view, year, monthOfYear, dayOfMonth) -> {
-                        // Update selected date and button text
-                        selectedDate = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
-                        dateButton.setText("Date: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                    },
-                    year, month, day);
-            datePickerDialog.show();
-        });
-
-        // Set onClickListener for Save Expense button
-        saveButton.setOnClickListener(v -> saveExpense());
+        // Populate the spinner with categories (You can use an array adapter for simplicity)
+        // Example:
+        // ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
+        // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // categorySpinner.setAdapter(adapter);
     }
 
-    // Method to save the expense
-    private void saveExpense() {
-        String name = expenseNameEditText.getText().toString().trim();
-        String amountString = amountEditText.getText().toString().trim();
-        String category = categorySpinner.getSelectedItem().toString();
+    public void onSelectDateClick(View view) {
+        // Implement date picker logic (e.g., using a DatePickerDialog)
+    }
 
-        if (name.isEmpty() || amountString.isEmpty() || selectedDate == null) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            return;
+    public void onSaveExpense() {
+        String expenseName = expenseNameEditText.getText().toString();
+        double amount = Double.parseDouble(expenseAmountEditText.getText().toString());
+        selectedCategory = categorySpinner.getSelectedItem().toString();
+
+        if (editCheckBox.isChecked()) {
+            // Check if an expense with the same name and date exists
+            boolean found = false;
+            for (Expense expense : ExpenseManager.getInstance().getAllExpenses()) {
+                if (expense.getName().equals(expenseName) && expense.getDate().equals(selectedDate)) {
+                    // Update existing expense
+                    expense.setAmount(amount);
+                    expense.setCategory(selectedCategory);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                Toast.makeText(this, "Expense not found. Heading back to Dashboard.", Toast.LENGTH_SHORT).show();
+                // Navigate to HomeActivity if expense not found
+                Intent intent = new Intent(AddExpenseActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        } else {
+            // Add new expense
+            ExpenseManager.getInstance().addExpense(expenseName, amount, selectedCategory, selectedDate);
         }
 
-        double amount = Double.parseDouble(amountString);
-
-        // Add or update expense using the ExpenseManager singleton
-        ExpenseManager.getInstance().addExpense(name, amount, category, selectedDate);
-
-        // Show success message and finish the activity
-        Toast.makeText(this, "Expense saved!", Toast.LENGTH_SHORT).show();
-        finish(); // Close activity and return to previous screen
+        // After saving or editing, return to the HomeActivity
+        Intent intent = new Intent(AddExpenseActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 }

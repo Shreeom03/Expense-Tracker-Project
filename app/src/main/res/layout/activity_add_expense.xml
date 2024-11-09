@@ -1,11 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Expense Name Input -->
     <EditText
         android:id="@+id/expense_name"
         android:layout_width="match_parent"
@@ -14,7 +12,6 @@
         android:hint="Expense Name"
         android:inputType="text" />
 
-    <!-- Expense Amount Input -->
     <EditText
         android:id="@+id/expense_amount"
         android:layout_width="match_parent"
@@ -39,6 +36,14 @@
         android:onClick="onSelectDateClick"
         android:text="Select Date" />
 
+    <!-- Checkbox for Edit Mode -->
+    <CheckBox
+        android:id="@+id/edit_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Existing Expense"
+        android:layout_marginBottom="16dp" />
+
     <!-- Save Expense Button -->
     <Button
         android:id="@+id/save_expense_button"
@@ -47,5 +52,4 @@
         android:layout_marginTop="32dp"
         android:onClick="onSaveExpense"
         android:text="Save Expense" />
-
 </LinearLayout>

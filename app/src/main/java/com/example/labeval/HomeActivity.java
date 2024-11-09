@@ -1,18 +1,17 @@
 package com.example.labeval;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Date;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView totalExpenseTextView, foodExpenseTextView, transportExpenseTextView, accommodationExpenseTextView;
+    private TextView totalExpenseTextView, foodExpenseTextView, transportExpenseTextView, accommodationExpenseTextView, adventureExpenseTextView, extraExpenseTextView;
     private Button addExpenseButton;
 
     @Override
@@ -25,33 +24,65 @@ public class HomeActivity extends AppCompatActivity {
         foodExpenseTextView = findViewById(R.id.food_expense);
         transportExpenseTextView = findViewById(R.id.transport_expense);
         accommodationExpenseTextView = findViewById(R.id.accommodation_expense);
+        adventureExpenseTextView = findViewById(R.id.adventure_expense);
+        extraExpenseTextView = findViewById(R.id.extra_expense);
         addExpenseButton = findViewById(R.id.add_expense_button);
 
-        // Populate the UI with total expenses and category breakdown
-        updateUI();
-
-        // Set listener for Add Expense button
+        // Set up the add expense button
         addExpenseButton.setOnClickListener(v -> {
-            // Example: Add a new expense to the singleton
-            ExpenseManager.getInstance().addExpense("New Expense", 25.0, "Food", new Date());
-            updateUI();
-            Toast.makeText(HomeActivity.this, "Expense added!", Toast.LENGTH_SHORT).show();
+            // Navigate to AddExpenseActivity when button is clicked
+            Intent intent = new Intent(HomeActivity.this, AddExpenseActivity.class);
+            startActivity(intent);
         });
     }
 
-    // Method to update the UI with total and category-wise breakdown
-    private void updateUI() {
-        double totalExpense = ExpenseManager.getInstance().getTotalExpense();
-        double foodExpense = ExpenseManager.getInstance().getCategoryExpense("Food");
-        double transportExpense = ExpenseManager.getInstance().getCategoryExpense("Transport");
-        double accommodationExpense = ExpenseManager.getInstance().getCategoryExpense("Accommodation");
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Load and display the updated list of expenses
+        loadExpenses();
+    }
 
-        // Set total expenses
-        totalExpenseTextView.setText("Total Expenses: $" + totalExpense);
+    private void loadExpenses() {
+        // Get the list of expenses from the ExpenseManager
+        List<Expense> expenses = ExpenseManager.getInstance().getAllExpenses();
 
-        // Set category-wise expenses (if a category has no expenses, display 0.0)
-        foodExpenseTextView.setText("Food: $" + foodExpense);
-        transportExpenseTextView.setText("Transport: $" + transportExpense);
-        accommodationExpenseTextView.setText("Accommodation: $" + accommodationExpense);
+        // Initialize variables for total and category expenses
+        double totalExpense = 0;
+        double foodExpense = 0;
+        double transportExpense = 0;
+        double accommodationExpense = 0;
+        double adventureExpense = 0;
+        double extraExpense = 0;
+
+        // Loop through the expenses and calculate the total and category breakdown
+        for (Expense expense : expenses) {
+            totalExpense += expense.getAmount();
+            switch (expense.getCategory()) {
+                case "Food":
+                    foodExpense += expense.getAmount();
+                    break;
+                case "Transport":
+                    transportExpense += expense.getAmount();
+                    break;
+                case "Accommodation":
+                    accommodationExpense += expense.getAmount();
+                    break;
+                case "Adventure":
+                    adventureExpense += expense.getAmount();
+                    break;
+                case "Extra":
+                    extraExpense += expense.getAmount();
+                    break;
+            }
+        }
+
+        // Update the UI with the totals
+        totalExpenseTextView.setText("Total: " + totalExpense);
+        foodExpenseTextView.setText("Food: " + foodExpense);
+        transportExpenseTextView.setText("Transport: " + transportExpense);
+        accommodationExpenseTextView.setText("Accommodation: " + accommodationExpense);
+        adventureExpenseTextView.setText("Adventure: " + adventureExpense);
+        extraExpenseTextView.setText("Extra: " + extraExpense);
     }
 }

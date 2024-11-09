@@ -17,7 +17,7 @@ public class Expense {
         this.date = date;
     }
 
-    // Getters and Setters
+    // Getters and setters
     public String getName() {
         return name;
     }

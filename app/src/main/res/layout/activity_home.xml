@@ -5,42 +5,54 @@
     android:padding="16dp"
     android:gravity="center">
 
-    <!-- Total Expense Text -->
     <TextView
         android:id="@+id/total_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Expenses: $0.00"
-        android:textSize="20sp"
-        android:layout_marginBottom="32dp"
-        android:textStyle="bold" />
+        android:text="Total: 0.0"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Food Category Expense -->
+    <!-- Category Breakdown -->
     <TextView
         android:id="@+id/food_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Food: $0.00"
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp" />
+        android:text="Food: 0.0"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
-    <!-- Transport Category Expense -->
     <TextView
         android:id="@+id/transport_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transport: $0.00"
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp" />
+        android:text="Transport: 0.0"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
-    <!-- Accommodation Category Expense -->
     <TextView
         android:id="@+id/accommodation_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accommodation: $0.00"
-        android:textSize="18sp"
-        android:layout_marginBottom="32dp" />
+        android:text="Accommodation: 0.0"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/adventure_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adventure: 0.0"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/extra_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Extra: 0.0"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp" />
 
     <!-- Add Expense Button -->
     <Button
@@ -48,7 +60,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Expense"
-        android:textSize="18sp"
-        android:layout_marginTop="32dp" />
-
+        android:onClick="addExpense" />
 </LinearLayout>
